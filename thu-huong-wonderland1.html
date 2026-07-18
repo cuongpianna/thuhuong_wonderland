@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="github" content="https://www.instagram.com/itxsully/" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="stylee-wily.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Inter:opsz,wght@14..32,500&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+  <title>Thu Huong's Wonderland 💗</title>
+  <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/mouse_slide.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/clicklove.js"></script>
+
+</head>
+
+<body>
+
+  <!-- Màn hình chờ bấm nút -->
+  <div class="start-screen" id="startScreen">
+    <p class="start-eyebrow">You once said the fee for keeping my things safe... was a million.</p>
+    <h2>So here's a million hearts, just for you</h2>
+    <button class="start-btn" id="startBtn">Come here</button>
+  </div>
+
+  <!-- Nhạc nền: đổi src thành đường dẫn file mp3 của bạn -->
+  <audio id="bgMusic" src="music/song.mp3" loop preload="auto"></audio>
+
+  <div class="frame1" id="frame1">
+    <div class="cat-container">
+      <img class="cat cat1" src="gif/m1.gif">
+      <img class="cat cat2" src="gif/m2.gif">
+      <img class="cat cat3" src="gif/m3.gif">
+      <img class="cat cat4" src="gif/m4.gif">
+      <img class="cat cat5" src="gif/m5.gif">
+      <img class="cat cat6" src="gif/m6.gif">
+      <img class="cat cat7" src="gif/m7.gif">
+      <img class="cat cat8" src="gif/m8.gif">
+      <img class="cat cat9" src="gif/m9.gif">
+      <img class="cat cat10" src="gif/m10.gif">
+      <img class="cat cat11" src="gif/m11.gif">
+      <img class="cat cat12" src="gif/m12.gif">
+      <img class="cat cat13" src="gif/m13.gif">
+      <img class="cat cat14" src="gif/m14.gif">
+    </div>
+    <div class="heart-wrap">
+      <canvas id="pinkboard"></canvas>
+      <div class="copy">
+        <a href="https://www.instagram.com/itxsully//reels/#"></a>
+      </div>
+      <div class="namebox">
+        <h1>To Thu Huong </h1>
+        <p class="message" id="quoteText"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var settings = {
+      particles: {
+        length: 500, // maximum amount of particles
+        duration: 2, // particle duration in sec
+        velocity: 100, // particle velocity in pixels/sec
+        effect: -0.75, // play with this for a nice effect
+        size: 30, // particle size in pixels
+      },
+    };
+    (function () {
+      var b = 0;
+      var c = ["ms", "moz", "webkit", "o"];
+      for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
+        window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
+        window.cancelAnimationFrame =
+          window[c[a] + "CancelAnimationFrame"] ||
+          window[c[a] + "CancelRequestAnimationFrame"];
+      }
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function (h, e) {
+          var d = new Date().getTime();
+          var f = Math.max(0, 16 - (d - b));
+          var g = window.setTimeout(function () {
+            h(d + f);
+          }, f);
+          b = d + f;
+          return g;
+        };
+      }
+      if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function (d) {
+          clearTimeout(d);
+        };
+      }
+    })();
+
+    var Point = (function () {
+      function Point(x, y) {
+        this.x = typeof x !== "undefined" ? x : 0;
+        this.y = typeof y !== "undefined" ? y : 0;
+      }
+      Point.prototype.clone = function () {
+        return new Point(this.x, this.y);
+      };
+      Point.prototype.length = function (length) {
+        if (typeof length == "undefined")
+          return Math.sqrt(this.x * this.x + this.y * this.y);
+        this.normalize();
+        this.x *= length;
+        this.y *= length;
+        return this;
+      };
+
+      Point.prototype.normalize = function () {
+        var length = this.length();
+        this.x /= length;
+        this.y /= length;
+        return this;
+      };
+      return Point;
+    })();
+
+    var Particle = (function () {
+      function Particle() {
+        this.position = new Point();
+        this.velocity = new Point();
+        this.acceleration = new Point();
+        this.age = 0;
+      }
+      Particle.prototype.initialize = function (x, y, dx, dy) {
+        this.position.x = x;
+        this.position.y = y;
+        this.velocity.x = dx;
+        this.velocity.y = dy;
+        this.acceleration.x = dx * settings.particles.effect;
+        this.acceleration.y = dy * settings.particles.effect;
+        this.age = 0;
+      };
+      Particle.prototype.update = function (deltaTime) {
+        this.position.x += this.velocity.x * deltaTime;
+        this.position.y += this.velocity.y * deltaTime;
+        this.velocity.x += this.acceleration.x * deltaTime;
+        this.velocity.y += this.acceleration.y * deltaTime;
+        this.age += deltaTime;
+      };
+
+      Particle.prototype.draw = function (context, image) {
+        function ease(t) {
+          return --t * t * t + 1;
+        }
+        var size = image.width * ease(this.age / settings.particles.duration);
+        context.globalAlpha = 1 - this.age / settings.particles.duration;
+        context.drawImage(
+          image,
+          this.position.x - size / 2,
+          this.position.y - size / 2,
+          size,
+          size
+        );
+      };
+      return Particle;
+    })();
+
+    /*
+     * ParticlePool class
+     */
+    var ParticlePool = (function () {
+      var particles,
+        firstActive = 0,
+        firstFree = 0,
+        duration = settings.particles.duration;
+      function ParticlePool(length) {
+        particles = new Array(length);
+        for (var i = 0; i < particles.length; i++)
+          particles[i] = new Particle();
+      }
+      ParticlePool.prototype.add = function (x, y, dx, dy) {
+        particles[firstFree].initialize(x, y, dx, dy);
+        firstFree++;
+        if (firstFree == particles.length) firstFree = 0;
+        if (firstActive == firstFree) firstActive++;
+        if (firstActive == particles.length) firstActive = 0;
+      };
+      ParticlePool.prototype.update = function (deltaTime) {
+        var i;
+        if (firstActive < firstFree) {
+          for (i = firstActive; i < firstFree; i++)
+            particles[i].update(deltaTime);
+        }
+        if (firstFree < firstActive) {
+          for (i = firstActive; i < particles.length; i++)
+            particles[i].update(deltaTime);
+          for (i = 0; i < firstFree; i++) particles[i].update(deltaTime);
+        }
+        while (
+          particles[firstActive].age >= duration &&
+          firstActive != firstFree
+        ) {
+          firstActive++;
+          if (firstActive == particles.length) firstActive = 0;
+        }
+      };
+      ParticlePool.prototype.draw = function (context, image) {
+        var i;
+        if (firstActive < firstFree) {
+          for (i = firstActive; i < firstFree; i++)
+            particles[i].draw(context, image);
+        }
+        if (firstFree < firstActive) {
+          for (i = firstActive; i < particles.length; i++)
+            particles[i].draw(context, image);
+          for (i = 0; i < firstFree; i++) particles[i].draw(context, image);
+        }
+      };
+      return ParticlePool;
+    })();
+
+    /*
+     * Toàn bộ hiệu ứng canvas (sao + trái tim particle) được bọc trong
+     * hàm startHeartEffect() — chỉ gọi khi người dùng bấm nút "Bắt đầu".
+     */
+    var heartStarted = false;
+
+    function startHeartEffect() {
+      if (heartStarted) return; // tránh khởi động 2 lần nếu bấm nhiều lần
+      heartStarted = true;
+
+      var canvas = document.getElementById("pinkboard");
+      var context = canvas.getContext("2d"),
+        particles = new ParticlePool(settings.particles.length),
+        particleRate =
+          settings.particles.length / settings.particles.duration, // particles/sec
+        time;
+
+      // ---- star background setup ----
+      var starCount = 500,
+        colorrange = [0, 60, 240],
+        stars = [];
+
+      function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function generateStars() {
+        stars = [];
+        for (var i = 0; i < starCount; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1.2,
+            hue: colorrange[getRandom(0, colorrange.length - 1)],
+            sat: getRandom(50, 100),
+          });
+        }
+      }
+
+      function drawStars() {
+        for (var i = 0; i < stars.length; i++) {
+          var s = stars[i];
+          context.beginPath();
+          context.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          context.fillStyle = "hsl(" + s.hue + ", " + s.sat + "%, 88%)";
+          context.fill();
+        }
+      }
+      // ---- end star background setup ----
+
+      // get point on heart with -PI <= t <= PI
+      function pointOnHeart(t) {
+        return new Point(
+          160 * Math.pow(Math.sin(t), 3),
+          130 * Math.cos(t) -
+          50 * Math.cos(2 * t) -
+          20 * Math.cos(3 * t) -
+          10 * Math.cos(4 * t) +
+          25
+        );
+      }
+
+      // creating the particle image using a dummy canvas
+      var image = (function () {
+        var canvas = document.createElement("canvas"),
+          context = canvas.getContext("2d");
+        canvas.width = settings.particles.size;
+        canvas.height = settings.particles.size;
+
+        function to(t) {
+          var point = pointOnHeart(t);
+          point.x =
+            settings.particles.size / 2 +
+            (point.x * settings.particles.size) / 350;
+          point.y =
+            settings.particles.size / 2 -
+            (point.y * settings.particles.size) / 350;
+          return point;
+        }
+
+        context.beginPath();
+        var t = -Math.PI;
+        var point = to(t);
+        context.moveTo(point.x, point.y);
+        while (t < Math.PI) {
+          t += 0.01;
+          point = to(t);
+          context.lineTo(point.x, point.y);
+        }
+        context.closePath();
+
+        context.fillStyle = "#ff30c5";
+        context.fill();
+
+        var image = new Image();
+        image.src = canvas.toDataURL();
+        return image;
+      })();
+
+      // render loop: clear -> draw stars -> draw heart particles
+      function render() {
+        requestAnimationFrame(render);
+
+        var newTime = new Date().getTime() / 1000,
+          deltaTime = newTime - (time || newTime);
+        time = newTime;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        context.globalAlpha = 1;
+        drawStars();
+
+        var amount = particleRate * deltaTime;
+        for (var i = 0; i < amount; i++) {
+          var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
+          var dir = pos.clone().length(settings.particles.velocity);
+          particles.add(
+            canvas.width / 2 + pos.x,
+            canvas.height / 2 - pos.y,
+            dir.x,
+            -dir.y
+          );
+        }
+
+        particles.update(deltaTime);
+        particles.draw(context, image);
+      }
+
+      function onResize() {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        generateStars();
+      }
+      window.addEventListener("resize", onResize);
+
+      onResize();
+      render();
+    }
+
+    // ---- Mèo xuất hiện lần lượt (staggered fade-in), sau đó mới bắt đầu float/spin ----
+    function revealCats() {
+      var cats = document.querySelectorAll(".cat");
+      cats.forEach(function (cat, index) {
+        var appearDelay = index * 140; // mỗi con cách nhau 140ms — chỉnh số này để nhanh/chậm hơn
+        setTimeout(function () {
+          cat.classList.add("visible");
+          // đợi hiệu ứng "nở ra" (transition .7s) xong rồi mới bật float/spin
+          setTimeout(function () {
+            cat.classList.add("floating");
+          }, 700);
+        }, appearDelay);
+      });
+    }
+
+    // ---- Chữ: hiệu ứng gõ máy chữ (typewriter) + xoay vòng nhiều câu quote ----
+    // Đổi nội dung mảng dưới thành các câu bạn muốn hiển thị
+    var quotes = [
+      "Good morning, huni ✨",
+      "Here's a million hearts, all for you 💕",
+      "I hope you're always happy 💗",
+    ];
+
+    function typeWriter(el, text, speed, onDone) {
+      var i = 0;
+      el.innerHTML = '<span class="typed"></span><span class="cursor">|</span>';
+      var typedSpan = el.querySelector(".typed");
+
+      function step() {
+        if (i < text.length) {
+          typedSpan.textContent += text.charAt(i);
+          i++;
+          setTimeout(step, speed);
+        } else if (onDone) {
+          onDone();
+        }
+      }
+      step();
+    }
+
+    function cycleQuotes(el, list, index) {
+      typeWriter(el, list[index], 70, function () {
+        var isLast = index >= list.length - 1;
+        if (isLast) {
+          // đã chạy hết 1 lượt — dừng lại ở câu cuối, xoá con trỏ nhấp nháy
+          var cursor = el.querySelector(".cursor");
+          if (cursor) cursor.remove();
+          return;
+        }
+        // giữ câu hiện tại trên màn hình một lúc rồi mới chuyển sang câu kế
+        setTimeout(function () {
+          el.classList.add("fade-out");
+          setTimeout(function () {
+            el.classList.remove("fade-out");
+            cycleQuotes(el, list, index + 1);
+          }, 800); // thời gian fade out, khớp với transition trong CSS
+        }, 3200); // thời gian giữ câu hiện tại trước khi đổi — chỉnh tại đây
+      });
+    }
+
+    function startQuotes() {
+      var quoteEl = document.getElementById("quoteText");
+      // đợi 1s cho màn hình ổn định rồi mới bắt đầu gõ câu đầu tiên
+      setTimeout(function () {
+        cycleQuotes(quoteEl, quotes, 0);
+      }, 2500);
+    }
+
+    // ---- Nút bấm bắt đầu ----
+    document.getElementById("startBtn").addEventListener("click", function () {
+      var startScreen = document.getElementById("startScreen");
+      var frame1 = document.getElementById("frame1");
+
+      startScreen.classList.add("hide");
+      frame1.classList.add("started"); // hiện frame1 (opacity/visibility)
+
+      revealCats(); // mèo xuất hiện lần lượt rồi mới bay/xoay
+      startQuotes(); // bắt đầu hiệu ứng gõ chữ + xoay vòng quote
+
+      startHeartEffect(); // kích hoạt canvas (sao + trái tim particle)
+
+      // ---- phát nhạc nền, fade in âm lượng cho mượt ----
+      var music = document.getElementById("bgMusic");
+      music.volume = 0;
+      music.play().catch(function (err) {
+        console.warn("Không phát được nhạc:", err);
+      });
+
+      var targetVolume = 0.6; // chỉnh âm lượng tối đa tại đây (0 -> 1)
+      var fadeStep = 0.02;
+      var fadeInterval = setInterval(function () {
+        if (music.volume < targetVolume - fadeStep) {
+          music.volume += fadeStep;
+        } else {
+          music.volume = targetVolume;
+          clearInterval(fadeInterval);
+        }
+      }, 60);
+
+      // xoá hẳn màn hình chờ khỏi DOM sau khi hiệu ứng mờ xong
+      setTimeout(function () {
+        startScreen.style.display = "none";
+      }, 900);
+    });
+  </script>
+  
+
+  <script>
+    const btn = document.getElementById("startBtn");
+const container = document.getElementById("startScreen");
+
+let escapeCount = 0;
+const MAX_ESCAPE = 4;
+
+let currentX = 0;
+let currentY = 0;
+
+btn.addEventListener("mouseenter", e => {
+
+    if (escapeCount > MAX_ESCAPE) return;
+
+    // Lần cuối về giữa
+    if (escapeCount === MAX_ESCAPE) {
+        currentX = 0;
+        currentY = 0;
+
+        btn.style.transform =
+            `translate(-50%,-50%)
+             rotate(0deg)
+             scale(1)`;
+
+        escapeCount++;
+        return;
+    }
+
+    const btnRect = btn.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    // Tâm nút
+    const bx = btnRect.left + btnRect.width / 2;
+    const by = btnRect.top + btnRect.height / 2;
+
+    // Vị trí chuột
+    const mx = e.clientX;
+    const my = e.clientY;
+
+    // Góc từ chuột -> nút
+    let angle = Math.atan2(by - my, bx - mx);
+
+    // Lệch thêm 25-45°
+    angle += (Math.random() - 0.5) * (Math.PI / 2);
+
+    // Khoảng chạy
+    const distance = 110 + Math.random() * 60;
+
+    let targetX = currentX + Math.cos(angle) * distance;
+    let targetY = currentY + Math.sin(angle) * distance;
+
+    // Giới hạn trong container
+    const limitX = container.clientWidth / 2 - btn.offsetWidth / 2 - 20;
+    const limitY = container.clientHeight / 2 - btn.offsetHeight / 2 - 20;
+
+    targetX = Math.max(-limitX, Math.min(limitX, targetX));
+    targetY = Math.max(-limitY, Math.min(limitY, targetY));
+
+    // Rụt lại một chút trước khi chạy
+    btn.style.transform =
+        `translate(calc(-50% + ${currentX * 0.08}px),
+                   calc(-50% + ${currentY * 0.08}px))
+         scale(.92)`;
+
+    setTimeout(() => {
+
+        currentX = targetX;
+        currentY = targetY;
+
+        const rotate = (Math.random() - 0.5) * 24;
+        const scale = 0.94 + Math.random() * 0.08;
+
+        btn.style.transform =
+            `translate(calc(-50% + ${currentX}px),
+                       calc(-50% + ${currentY}px))
+             rotate(${rotate}deg)
+             scale(${scale})`;
+
+    }, 80);
+
+    escapeCount++;
+});
+
+btn.addEventListener("click", () => {
+    alert("🤣 Cuối cùng cũng bắt được rồi!");
+});
+  </script>
+</body>
+
+</html>
