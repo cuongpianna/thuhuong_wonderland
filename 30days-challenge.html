@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>🌻 30 Days Challenge</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/30d.css">
+
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="gradient"></div>
+
+<!-- ===================================
+ HERO
+=================================== -->
+
+<header class="hero">
+
+    <h1>
+
+        🌻 30 Days Challenge
+
+    </h1>
+
+    <p>
+
+        One little promise,
+        every working morning.
+
+    </p>
+
+</header>
+
+<!-- ===================================
+ MAIN
+=================================== -->
+
+<main class="container">
+
+    <!-- TODAY -->
+
+    <section class="card today">
+
+        <div class="card-title">
+
+            TODAY
+
+        </div>
+
+        <div class="today-date">
+
+            <span id="todayWeekday">
+
+                Monday
+
+            </span>
+
+            <h2 id="todayDate">
+
+                03 Aug 2026
+
+            </h2>
+
+        </div>
+
+        <div class="weather">
+
+            <span id="weatherIcon">
+
+                ☀️
+
+            </span>
+
+            <div>
+
+                <div id="weatherTemp">
+
+                    30°C
+
+                </div>
+
+                <small id="weatherDesc">
+
+                    Loading weather...
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="clock"
+             id="clock">
+
+            07:58:00
+
+        </div>
+
+        <div class="status waiting"
+             id="status">
+
+            Ready for today's check-in
+
+        </div>
+
+        <div class="actions">
+
+            <button id="checkInBtn"
+                    class="primary">
+
+                🌻 Check In
+
+            </button>
+
+            <button id="passBtn"
+                    class="secondary" style="display: none">
+
+                🎫 Use Pass
+
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- STREAK -->
+
+    <section class="card">
+
+        <div class="card-title">
+
+            CURRENT STREAK
+
+        </div>
+
+        <div class="streak-number">
+
+            🔥
+
+            <span id="streak">
+
+                0
+
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div id="progressBar"
+                 class="progress-fill">
+
+            </div>
+
+        </div>
+
+        <div class="progress-text">
+
+            <span id="completed">
+
+                0
+
+            </span>
+
+            /
+
+            <span id="totalDays">
+                18
+            </span>
+
+            Working Days
+
+        </div>
+
+    </section>
+
+    <!-- JOURNEY -->
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+
+                JOURNEY
+
+            </div>
+
+            <div class="legend">
+
+                <span>🟩 On Time</span>
+
+                <span>🟨 Late</span>
+
+                <span>🟦 Pass</span>
+
+                <span>⬜ Upcoming</span>
+
+            </div>
+
+        </div>
+
+        <div class="calendar"
+             id="calendar">
+
+            <!-- JS Render -->
+
+        </div>
+
+    </section>
+
+    <!-- REWARD -->
+
+    <section class="card reward">
+
+        <div class="card-title">
+
+            LITTLE SURPRISE
+
+        </div>
+
+        <div class="mystery-box"
+             id="rewardBox">
+
+            📦
+
+        </div>
+
+        <h2 id="rewardTitle">
+
+            Hidden Surprise
+
+        </h2>
+
+        <p id="rewardDescription">
+
+            Keep going.<br>
+            Something lovely is waiting for you.
+
+        </p>
+
+    </section>
+
+
+</main>
+
+<!-- ===================================
+ FOOTER
+=================================== -->
+
+<footer>
+
+    <p>
+
+        Keep going,
+        one beautiful morning at a time.
+
+    </p>
+
+</footer>
+
+<script src="js30d/utils.js"></script>
+
+<script src="js30d/config.js"></script>
+
+<script src="js30d/storage.js"></script>
+
+<script src="js30d/weather.js"></script>
+
+<script src="js30d/quote.js"></script>
+
+<script src="js30d/reward.js"></script>
+
+<script src="js30d/calendar.js"></script>
+
+<script src="js30d/ui.js"></script>
+
+<script src="js30d/app.js"></script>
+
+</body>
+
+</html>
