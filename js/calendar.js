@@ -35,6 +35,8 @@ const Calendar = (function () {
 
         if (status) {
             day.classList.add(status.status);
+        } else if (dateObj < today) {
+            day.classList.add("missed");
         }
 
         if (date === JOURNEY_DAYS[JOURNEY_DAYS.length - 1]) {
@@ -75,7 +77,7 @@ const Calendar = (function () {
 
     function getLabel(status) {
         if (!status) {
-            return "";
+            return "—";
         }
 
         const time = Utils.formatTime(status.time || status.checkin_time);

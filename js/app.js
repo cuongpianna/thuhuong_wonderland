@@ -140,6 +140,22 @@ const App = (function () {
 
     async function checkin(date) {
 
+        if (!Utils.isJourneyDay(date)) {
+
+            UI.error("Hôm nay không đi làm mà vẫn vào đây check-in à? 😼");
+
+            return;
+
+        }
+
+        if (date !== Utils.today()) {
+
+            UI.error("Bạn chỉ có thể check-in cho ngày hôm nay.");
+
+            return;
+
+        }
+
         if (MyStorage.exists(date)) {
 
             UI.toast("Hôm nay đã điểm danh rồi ❤️");
@@ -167,7 +183,11 @@ const App = (function () {
 
             Calendar.refresh();
 
-            await Reward.update();
+            const isFinalDay = date === JOURNEY_DAYS[JOURNEY_DAYS.length - 1];
+
+            const earnedGifts = await Reward.update({
+                deferPresentation: isFinalDay
+            });
 
             Quote.afterCheckin(status);
 
@@ -175,11 +195,11 @@ const App = (function () {
 
             UI.success(status);
 
-            if (date === JOURNEY_DAYS[JOURNEY_DAYS.length - 1]) {
+            if (isFinalDay) {
 
                 const won = Reward.lateDays() <= CONFIG.REWARD.MAX_LATE_DAYS;
 
-                UI.finishJourney(won);
+                UI.finishJourney(won, earnedGifts);
 
             }
 
@@ -201,7 +221,17 @@ const App = (function () {
 
     function checkToday() {
 
-        if (MyStorage.exists(Utils.today())) {
+        const today = Utils.today();
+
+        if (!Utils.isJourneyDay(today)) {
+
+            UI.disableCheckin("Hôm nay không đi làm mà vẫn vào đây à? 😼");
+
+            return;
+
+        }
+
+        if (MyStorage.exists(today)) {
 
             UI.disableCheckin();
 

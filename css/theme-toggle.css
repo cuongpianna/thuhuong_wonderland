@@ -1,0 +1,47 @@
+/* =========================================
+   THEME-TOGGLE.CSS
+   Floating button to switch between css/30days.css (light)
+   and css/style-dark.css (dark, default). See js/theme.js.
+========================================= */
+
+#theme-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 3001;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .25);
+    background: rgba(20, 20, 25, .55);
+    color: #fff;
+    font-size: 19px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+#theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, .35);
+}
+
+#theme-toggle:active {
+    transform: scale(.94);
+}
+
+@media (max-width: 480px) {
+    #theme-toggle {
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 17px;
+    }
+}

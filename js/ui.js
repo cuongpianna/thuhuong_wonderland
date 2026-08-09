@@ -182,7 +182,7 @@ const UI = (function () {
 
     }
 
-    function disableCheckin() {
+    function disableCheckin(label = "Đã điểm danh ✔") {
 
         const btn = document.getElementById("checkin-btn");
 
@@ -192,7 +192,7 @@ const UI = (function () {
 
         btn.disabled = true;
 
-        btn.innerHTML = "Đã điểm danh ✔";
+        btn.innerHTML = label;
 
     }
 
@@ -319,6 +319,10 @@ const UI = (function () {
 
         }
 
+        if (typeof Pet !== "undefined") {
+            Pet.update(progress);
+        }
+
     }
 
     function shakeButton() {
@@ -397,7 +401,10 @@ const UI = (function () {
 
     }
 
-    function finishJourney(won) {
+    function finishJourney(won, earnedGifts = []) {
+
+        // The final screen owns the celebration so a reward modal never stacks above it.
+        hideGift();
 
         confetti();
 
@@ -411,6 +418,12 @@ const UI = (function () {
 
         const desc = document.getElementById("finish-description");
 
+        const postcard = document.getElementById("finish-postcard");
+
+        const rewards = document.getElementById("finish-rewards");
+
+        const progress = Reward.progress();
+
         if (icon) {
             icon.innerHTML = data.icon;
         }
@@ -421,6 +434,26 @@ const UI = (function () {
 
         if (desc) {
             desc.innerHTML = data.description;
+        }
+
+        if (postcard) {
+            postcard.querySelector("[data-postcard='completed']").textContent = progress.completed;
+            postcard.querySelector("[data-postcard='streak']").textContent = progress.streak;
+            postcard.querySelector("[data-postcard='late']").textContent = progress.late;
+            postcard.classList.toggle("postcard-won", won);
+        }
+
+        if (rewards) {
+            rewards.replaceChildren();
+
+            earnedGifts.forEach(gift => {
+                const item = document.createElement("div");
+                item.className = "finish-reward-item";
+                item.textContent = `${gift.icon} Quà hành trình: ${gift.title}`;
+                rewards.appendChild(item);
+            });
+
+            rewards.classList.toggle("hidden", earnedGifts.length === 0);
         }
 
         if (modal) {

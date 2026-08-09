@@ -1,0 +1,313 @@
+/* =========================================
+   STYLE-DARK.CSS
+   Dark / neon theme override for 30days.html,
+   inspired by the look & feel of 30days-challenge.html (css/30d.css).
+
+   Active whenever <html> has class "theme-dark" (default — see js/theme.js
+   and the #theme-toggle button, which flips it to the css/30days.css look).
+
+   This file does NOT modify css/30days.css — it only overrides
+   the same selectors/variables, scoped under .theme-dark, to swap
+   the light theme for a dark one.
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* =========================================
+   THEME VARIABLES
+   30days.css builds most cards/text off these CSS vars,
+   so re-defining them here re-themes a large chunk of the page for free.
+========================================= */
+
+:root.theme-dark {
+    --bg: #09090c;
+    --bg2: #0d0d12;
+    --card: rgba(255, 255, 255, .06);
+    --border: rgba(255, 255, 255, .1);
+    --shadow: 0 20px 60px rgba(0, 0, 0, .5);
+    --primary: #ff5fa8;
+    --primary-light: #ff9ecb;
+    --yellow: #ffd166;
+    --green: #4caf50;
+    --blue: #60a5fa;
+    --text: #f5f5f7;
+    --sub: #a7a7b3;
+}
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.theme-dark body {
+    background: linear-gradient(180deg, #0a0a0d 0%, #0d0910 45%, #100a12 100%);
+}
+
+.theme-dark body::before {
+    background:
+            radial-gradient(circle at top left, rgba(255, 95, 168, .16), transparent 40%),
+            radial-gradient(circle at bottom right, rgba(120, 80, 255, .16), transparent 45%);
+}
+
+.theme-dark .gradient {
+    background:
+            radial-gradient(circle at top, rgba(255, 100, 180, .18), transparent 40%),
+            radial-gradient(circle at bottom, rgba(110, 70, 255, .18), transparent 45%);
+}
+
+/* soft starfield, CSS-only (no canvas/JS needed) */
+.theme-dark body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -4;
+    background-image:
+            radial-gradient(1.5px 1.5px at 20px 30px, rgba(255, 255, 255, .9), transparent),
+            radial-gradient(1.5px 1.5px at 90px 120px, rgba(255, 255, 255, .7), transparent),
+            radial-gradient(1px 1px at 150px 60px, rgba(255, 255, 255, .8), transparent),
+            radial-gradient(1.5px 1.5px at 200px 160px, rgba(255, 255, 255, .6), transparent),
+            radial-gradient(1px 1px at 250px 20px, rgba(255, 255, 255, .9), transparent);
+    background-repeat: repeat;
+    background-size: 280px 220px;
+    opacity: .5;
+    animation: starTwinkle 5s ease-in-out infinite alternate;
+}
+
+.theme-dark #background::before {
+    background: #ff5fa8;
+    opacity: .22;
+}
+
+.theme-dark #background::after {
+    background: #7c5cff;
+    opacity: .18;
+}
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.theme-dark .journey-card {
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.theme-dark .journey-card::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, .08), transparent);
+}
+
+.theme-dark .journey-card::after {
+    background: rgba(255, 255, 255, .08);
+}
+
+/* =========================================
+   WEATHER / GREETING
+========================================= */
+
+.theme-dark #weather-section {
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.theme-dark #weather-icon {
+    background: linear-gradient(145deg, #ffe58a, #ffb84d);
+    box-shadow: 0 10px 25px rgba(255, 184, 77, .25);
+}
+
+.theme-dark #greeting {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    text-shadow: 0 0 14px rgba(255, 95, 168, .55), 0 0 30px rgba(255, 20, 147, .3);
+}
+
+/* =========================================
+   CALENDAR
+========================================= */
+
+.theme-dark .day {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
+}
+
+.theme-dark .day::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, .1), transparent);
+}
+
+.theme-dark .day:hover {
+    box-shadow: 0 0 22px rgba(255, 95, 168, .3);
+}
+
+.theme-dark .day.today {
+    box-shadow: 0 0 0 6px rgba(255, 209, 102, .12);
+}
+
+.theme-dark .day.missed {
+    background: rgba(255, 255, 255, .05);
+    color: var(--sub);
+}
+
+.theme-dark .day.checked {
+    background: linear-gradient(135deg, #54cfad, #329d87);
+    box-shadow: 0 0 18px rgba(84, 207, 173, .28);
+}
+
+.theme-dark .day.late {
+    background: linear-gradient(135deg, #f3a17f, #d86f70);
+    box-shadow: 0 0 18px rgba(243, 161, 127, .28);
+}
+
+.theme-dark .day.bypass {
+    background: linear-gradient(135deg, #95a9ed, #707fca);
+    box-shadow: 0 0 18px rgba(149, 169, 237, .28);
+}
+
+.theme-dark .day.last-day:not(.checked):not(.late):not(.bypass) {
+    background: linear-gradient(135deg, #b967ff, #ff5fa8);
+    box-shadow: 0 0 18px rgba(185, 103, 255, .4);
+}
+
+.theme-dark .day.future {
+    opacity: .3;
+    filter: none;
+}
+
+.theme-dark .legend-dot.checked {
+    background: linear-gradient(135deg, #54cfad, #329d87);
+}
+
+.theme-dark .legend-dot.late {
+    background: linear-gradient(135deg, #f3a17f, #d86f70);
+}
+
+.theme-dark .legend-dot.bypass {
+    background: linear-gradient(135deg, #95a9ed, #707fca);
+}
+
+/* =========================================
+   PROGRESS / STREAK CARDS
+========================================= */
+
+.theme-dark .progress-card {
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
+}
+
+.theme-dark .journey-progress-bar {
+    background: rgba(255, 255, 255, .08);
+}
+
+.theme-dark #calendar-legend {
+    border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.theme-dark .legend-dot.missed {
+    background: #55555c;
+    border: 1px solid rgba(255, 255, 255, .15);
+}
+
+/* =========================================
+   QUOTE
+========================================= */
+
+.theme-dark #quote-box {
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-left: 6px solid var(--primary);
+    color: #e7e7ee;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
+}
+
+.theme-dark #quote-popup {
+    background: #18181f;
+    color: var(--text);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+}
+
+/* =========================================
+   CHECK-IN BUTTON
+========================================= */
+
+.theme-dark #checkin-btn {
+    background: linear-gradient(135deg, #ff4f8b, #ff7eb3);
+    box-shadow: 0 16px 35px rgba(255, 20, 147, .35);
+}
+
+.theme-dark #checkin-btn:hover {
+    box-shadow: 0 0 30px rgba(255, 20, 147, .5);
+}
+
+.theme-dark #checkin-btn:disabled {
+    background: #3a3a42;
+    color: #8c8c96;
+}
+
+/* =========================================
+   MODALS
+========================================= */
+
+.theme-dark .modal-content {
+    background: #16161d;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, .6);
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.theme-dark #gift-description,
+.theme-dark #finish-description {
+    color: var(--sub);
+}
+
+.theme-dark #gift-close,
+.theme-dark #finish-close {
+    background: linear-gradient(135deg, #ff4f8b, #ff7eb3);
+}
+
+.theme-dark #gift-close:hover,
+.theme-dark #finish-close:hover {
+    box-shadow: 0 0 25px rgba(255, 20, 147, .45);
+}
+
+.theme-dark .finish-postcard {
+    color: #f5dce8;
+    background: linear-gradient(135deg, rgba(255, 95, 168, .18), rgba(124, 92, 255, .2));
+    border-color: rgba(255, 255, 255, .12);
+    box-shadow: inset 0 0 0 5px rgba(255, 255, 255, .03);
+}
+
+.theme-dark .finish-rewards {
+    color: #ffe2aa;
+    background: rgba(255, 209, 102, .1);
+    border-color: rgba(255, 209, 102, .2);
+}
+
+/* =========================================
+   LOADER / TOAST
+========================================= */
+
+.theme-dark #page-loader {
+    background: linear-gradient(180deg, #0a0a0d 0%, #0d0910 45%, #100a12 100%);
+}
+
+.theme-dark .loader-ring {
+    border: 4px solid rgba(255, 95, 168, .18);
+    border-top-color: var(--primary);
+}
+
+.theme-dark .toast {
+    background: #18181f;
+    color: var(--text);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .5);
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes starTwinkle {
+    from {
+        opacity: .3;
+    }
+    to {
+        opacity: .65;
+    }
+}

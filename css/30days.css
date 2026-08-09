@@ -321,7 +321,7 @@ body::before {
 }
 
 .day.checked {
-    background: linear-gradient(135deg, #6fd18f, #34c77b);
+    background: linear-gradient(135deg, #82d5ba, #4db397);
     color: #fff;
     border: none;
 }
@@ -340,7 +340,7 @@ body::before {
 }
 
 .day.bypass {
-    background: linear-gradient(135deg, #9fd4ff, #6cb8ff);
+    background: linear-gradient(135deg, #b3c0f5, #879ce5);
     color: #fff;
     border: none;
 }
@@ -568,12 +568,54 @@ body::before {
     box-shadow: 0 12px 25px rgba(255, 117, 140, .35);
 }
 
+.finish-postcard {
+    position: relative;
+    overflow: hidden;
+    margin: 4px 0 24px;
+    padding: 18px;
+    text-align: left;
+    color: #694553;
+    background: linear-gradient(135deg, #fff8ee, #ffe8ef);
+    border: 1px solid rgba(255, 117, 140, .24);
+    border-radius: 18px;
+    box-shadow: inset 0 0 0 5px rgba(255, 255, 255, .38);
+}
+
+.finish-postcard::after {
+    content: "✦";
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    color: #f2b447;
+    font-size: 25px;
+}
+
+.postcard-heading { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.postcard-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0; }
+.postcard-stats div { display: flex; flex-direction: column; gap: 2px; }
+.postcard-stats strong { color: var(--primary); font-size: 24px; line-height: 1; }
+.postcard-stats span, .postcard-note { font-size: 10px; line-height: 1.45; }
+.postcard-note { margin: 0; font-style: italic; }
+
+.finish-rewards {
+    margin: 0 0 16px;
+    padding: 11px 13px;
+    border-radius: 14px;
+    color: #9a4f67;
+    background: rgba(255, 209, 102, .2);
+    border: 1px solid rgba(242, 180, 71, .28);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.finish-reward-item + .finish-reward-item { margin-top: 5px; }
+
 #confetti-container {
     position: fixed;
     inset: 0;
     pointer-events: none;
     overflow: hidden;
-    z-index: 950;
+    z-index: 1100;
 }
 
 .confetti {
@@ -1032,7 +1074,7 @@ body::before {
 }
 
 .day.late {
-    background: linear-gradient(135deg, #ffb347, #ff8c42);
+    background: linear-gradient(135deg, #f6b18c, #e98578);
     color: #fff;
     border: none;
 }
@@ -1041,12 +1083,12 @@ body::before {
     color: rgba(255, 255, 255, .9);
 }
 
-.day.last-day {
+.day.last-day:not(.checked):not(.late):not(.bypass) {
     background: linear-gradient(135deg, #a855f7, #f472b6);
     color: #fff;
 }
 
-.day.last-day .day-label {
+.day.last-day:not(.checked):not(.late):not(.bypass) .day-label {
     color: rgba(255, 255, 255, .9);
 }
 
@@ -1076,15 +1118,15 @@ body::before {
 }
 
 .legend-dot.checked {
-    background: linear-gradient(135deg, #6fd18f, #34c77b);
+    background: linear-gradient(135deg, #82d5ba, #4db397);
 }
 
 .legend-dot.late {
-    background: linear-gradient(135deg, #ffb347, #ff8c42);
+    background: linear-gradient(135deg, #f6b18c, #e98578);
 }
 
 .legend-dot.bypass {
-    background: linear-gradient(135deg, #9fd4ff, #6cb8ff);
+    background: linear-gradient(135deg, #b3c0f5, #879ce5);
 }
 
 .legend-dot.missed {

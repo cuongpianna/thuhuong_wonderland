@@ -6,3 +6,9 @@ weather.js
 ui.js
 utils.js
 app.js
+
+CONFIG.DEV.fakeDate = "2026-08-07";
+  UI.updateProgress();
+
+  CONFIG.DEV.fakeDate = "2026-08-08";
+  UI.updateProgress()

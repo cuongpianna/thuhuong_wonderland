@@ -14,15 +14,17 @@ const Reward = (function () {
 
     }
 
-    async function update() {
+    async function update(options = {}) {
 
         await MyStorage.refresh();
 
         streak = calculateStreak();
 
-        await checkReward();
+        const earnedGifts = await checkReward(options);
 
         updateProgress();
+
+        return earnedGifts;
 
     }
 
@@ -148,9 +150,11 @@ const Reward = (function () {
 
     }
 
-    async function checkReward() {
+    async function checkReward(options = {}) {
 
         const lastStreak = MyStorage.loadLastStreak();
+
+        const earnedGifts = [];
 
         for (const gift of CONFIG.GIFTS) {
 
@@ -160,7 +164,8 @@ const Reward = (function () {
 
                     if (streak === gift.streak && lastStreak < gift.streak) {
 
-                        await grantGift(gift);
+                        const granted = await grantGift(gift, options);
+                        if (granted) earnedGifts.push(gift);
 
                     }
 
@@ -168,7 +173,8 @@ const Reward = (function () {
 
                     MyStorage.unlockReward(gift.id);
 
-                    await grantGift(gift);
+                    const granted = await grantGift(gift, options);
+                    if (granted) earnedGifts.push(gift);
 
                 }
 
@@ -182,15 +188,26 @@ const Reward = (function () {
 
         MyStorage.saveLastStreak(streak);
 
+        return earnedGifts;
+
     }
 
-    async function grantGift(gift) {
+    async function grantGift(gift, options = {}) {
 
         if (gift.effect === "late_forgive") {
+
+            if (!findLatestLateDate()) {
+                return false;
+            }
+
             await forgiveLatestLate();
         }
 
-        showGift(gift);
+        if (!options.deferPresentation) {
+            showGift(gift);
+        }
+
+        return true;
 
     }
 

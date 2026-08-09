@@ -108,14 +108,26 @@ const Utils = (function () {
         return `${String(currentHour()).padStart(2, "0")}:${String(currentMinute()).padStart(2, "0")}`;
     }
 
+    function getCheckinTime(date = today()) {
+
+        const dayOfWeek = new Date(`${date}T00:00:00`).getDay();
+
+        return dayOfWeek === 6
+            ? CONFIG.SATURDAY_CHECKIN_TIME
+            : CONFIG.CHECKIN_TIME;
+
+    }
+
     function getStatusFromTime() {
 
         const current = currentTime();
-        if (current < CONFIG.CHECKIN_TIME) {
+        const checkinTime = getCheckinTime();
+
+        if (current < checkinTime) {
             return CONFIG.STATUS.EARLY;
         }
 
-        if (current === CONFIG.CHECKIN_TIME) {
+        if (current === checkinTime) {
 
             return CONFIG.STATUS.ON_TIME;
 
@@ -147,6 +159,8 @@ const Utils = (function () {
 
     return {
         isLate,
+
+        getCheckinTime,
         today,
 
         now,

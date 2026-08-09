@@ -1,6 +1,7 @@
 const CONFIG = {
     STORAGE: "supabase", // supabase | local
     CHECKIN_TIME: "08:05",
+    SATURDAY_CHECKIN_TIME: "08:30",
     BAD_WEATHER_DAYS: [
         // "2026-08-21"
     ],
@@ -30,7 +31,7 @@ const CONFIG = {
             id: "gift_late_forgive",
             streak: 2,
             title: "🕊️ Trừ 1 ngày đi muộn",
-            description: "Phần thưởng cho sự chăm chỉ của chị trong 2 ngày đúng giờ liên tiếp sẽ được miễn 1 lần đi muộn. Cố lên nhé! ✨",
+            description: "Phần thưởng cho sự chăm chỉ của chị trong 2 ngày đúng giờ liên tiếp sẽ được miễn 1 ngày đi muộn. Cố gắng giữ vững phong độ nhé! ✨",
             icon: "🕊️",
             repeatable: true,
             effect: "late_forgive"
@@ -39,7 +40,7 @@ const CONFIG = {
             id: "gift_tea",
             streak: 4,
             title: "🍵 Phần thưởng cho người xứng đáng",
-            description: "Halo!!! Người đẹp đã đi làm sớm 4 ngày liên tiếp, chúc mừng chị nhé. Nhớ để ý điện thoại ha! ^^",
+            description: "Xin chào người đẹp! 4 ngày đi làm sớm liên tiếp rồi đó, vip thật!!! Chút nữa nhớ để ý điện thoại nhận quà ha! 🍵",
             icon: "🍵",
             repeatable: false
         }
@@ -74,7 +75,7 @@ const CONFIG = {
     // - CONFIG.DEV.useTestTable: true → app tự chuyển sang đọc/ghi bảng journey_checkins_test (nhớ tạo bảng này trên Supabase như SQL đã gửi trước).
 // - CONFIG.DEV.fakeDate: "2026-08-10" → app coi ngày đó là "hôm nay" (đã có sẵn từ trước, không cần code gì thêm).
     DEV: {
-        // fakeDate: "2026-08-21",
+        // fakeDate: "2026-08-08",
         fakeDate: null,
         fakeTime: null,
         fakeWeather: null,

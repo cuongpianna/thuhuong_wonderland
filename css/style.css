@@ -243,16 +243,6 @@ body {
 
 }
 
-.timeline-item.left .timeline-content{
-
-    margin-right:auto;
-
-    text-align:right;
-
-    transform:translateX(-170px);
-
-}
-
 .timeline-item.right{
 
     align-items:flex-end;
@@ -497,55 +487,6 @@ footer {
 
 @media (max-width: 768px) {
 
-    .hero h1 {
-
-        font-size: 42px;
-
-    }
-
-    .hero p {
-
-        font-size: 17px;
-
-    }
-
-    .timeline-item {
-
-        min-height: 360px;
-
-    }
-
-    .timeline-dot {
-
-        width: 72px;
-
-        height: 72px;
-
-        font-size: 34px;
-
-    }
-
-    .timeline-content h2 {
-
-        font-size: 30px;
-
-    }
-
-    .timeline-content p {
-
-        font-size: 16px;
-
-    }
-
-}
-
-
-/* ==========================
-   MOBILE
-========================== */
-
-@media (max-width: 768px) {
-
     .hero {
 
         min-height: 100svh;
@@ -580,12 +521,6 @@ footer {
         width: 92%;
 
         padding-bottom: 80px;
-
-    }
-
-    .timeline-line {
-
-        left: 50%;
 
     }
 

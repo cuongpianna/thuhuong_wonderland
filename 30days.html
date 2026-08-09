@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="theme-dark">
 
 <head>
 
@@ -10,11 +9,26 @@
 
     <title>30-day Challenge</title>
 
+    <script>
+        if (localStorage.getItem("journey_theme") === "light") {
+            document.documentElement.classList.remove("theme-dark");
+        }
+    </script>
+
     <link rel="stylesheet" href="css/30days.css">
+    <link rel="stylesheet" href="css/style-dark.css">
+    <link rel="stylesheet" href="css/theme-toggle.css">
+    <link rel="stylesheet" href="css/pet.css">
 
 </head>
 
 <body>
+
+<!-- Theme Toggle -->
+<button id="theme-toggle"
+        title="Đổi giao diện sáng/tối">
+    🌙
+</button>
 
 <!-- Page Loader -->
 <div id="page-loader">
@@ -47,9 +61,19 @@
 
             <div>
 
-                <h2 id="greeting">
-                    Good Morning
-                </h2>
+                <div class="greeting-row">
+
+                    <h2 id="greeting">
+                        Good Morning
+                    </h2>
+
+                    <span id="pet-icon"
+                          class="pet-inline"
+                          title="Trứng bí ẩn">
+                        🥚
+                    </span>
+
+                </div>
 
                 <p id="weather-text">
                     Loading...
@@ -62,11 +86,11 @@
         <!-- Journey -->
         <section id="journey-section">
 
-            <!--            <h1>-->
+            <h1>
 
-            <!--                ❤️ Morning Journey-->
+                ❤️ Morning Journey
 
-            <!--            </h1>-->
+            </h1>
 
             <p>
 
@@ -276,6 +300,18 @@
 
         </p>
 
+        <div id="finish-rewards" class="finish-rewards hidden"></div>
+
+        <section id="finish-postcard" class="finish-postcard" aria-label="Tổng kết hành trình">
+            <div class="postcard-heading">Morning Journey · 03.08 — 22.08</div>
+            <div class="postcard-stats">
+                <div><strong data-postcard="completed">0</strong><span>ngày hoàn thành</span></div>
+                <div><strong data-postcard="streak">0</strong><span>streak hiện tại</span></div>
+                <div><strong data-postcard="late">0</strong><span>lần đi muộn</span></div>
+            </div>
+            <p class="postcard-note">Một thói quen nhỏ đã tạo nên một phiên bản rực rỡ hơn. 💌</p>
+        </section>
+
         <button id="finish-close">
 
             Tuyệt vời ❤️
@@ -352,9 +388,13 @@
 
 <script src="js/reward.js"></script>
 
+<script src="js/pet.js"></script>
+
 <script src="js/quote.js"></script>
 
 <script src="js/ui.js"></script>
+
+<script src="js/theme.js"></script>
 
 <script src="js/app.js"></script>
 
