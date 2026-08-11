@@ -3,7 +3,7 @@ const CONFIG = {
     CHECKIN_TIME: "08:05",
     SATURDAY_CHECKIN_TIME: "08:30",
     BAD_WEATHER_DAYS: [
-        // "2026-08-21"
+        "2026-08-11"
     ],
     QUOTE_AFTER_CHECKIN: true,
     SHOW_WEATHER: true,
