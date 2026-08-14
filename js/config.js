@@ -40,7 +40,7 @@ const CONFIG = {
             id: "gift_tea",
             streak: 4,
             title: "🍵 Phần thưởng cho người xứng đáng",
-            description: "Xin chào người đẹp! 4 ngày đi làm sớm liên tiếp rồi đó, vip thật!!! Chút nữa nhớ để ý điện thoại nhận quà ha! 🍵",
+            description: "Tada~! Hôm nay đã là ngày thứ 4 liên tiếp c đi sớm rồi đấy, nhận một chút quà để khích lệ tinh thần này nhé. Chút nữa nhớ để ý điện thoại he ^^",
             icon: "🍵",
             repeatable: false
         }
