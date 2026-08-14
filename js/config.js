@@ -75,7 +75,7 @@ const CONFIG = {
     // - CONFIG.DEV.useTestTable: true → app tự chuyển sang đọc/ghi bảng journey_checkins_test (nhớ tạo bảng này trên Supabase như SQL đã gửi trước).
 // - CONFIG.DEV.fakeDate: "2026-08-10" → app coi ngày đó là "hôm nay" (đã có sẵn từ trước, không cần code gì thêm).
     DEV: {
-        // fakeDate: "2026-08-08",
+        // fakeDate: "2026-08-15",
         fakeDate: null,
         fakeTime: null,
         fakeWeather: null,
@@ -96,7 +96,8 @@ const CONFIG = {
         WIN: {
             icon: "🏆",
             title: "Hoàn thành xuất sắc!",
-            description: "Chị đã hoàn thành cả hành trình, không vượt quá số ngày muộn cho phép. Đi ăn 1 bữa thật ngon và nhận 1 món quà nhỏ đang chờ chị nhé! 🎁"
+            description: "Tadaa~~~ Chúc mừng người đẹp đã hoàn thành xuất sắc thử thách này ^^<br>Tuy là có sự can thiệp từ chính quyền, nhưng chị biết mà. Nếu chị muốn, em không để mấy" +
+                "con số khô khan dưới này ngăn cản c lấy quà đâu :)) Cùng chờ nhé ^^"
         },
         LOSE: {
             icon: "🤍",
@@ -120,12 +121,12 @@ const JOURNEY_DAYS = [
     "2026-08-13",
     "2026-08-14",
     "2026-08-15",
-    "2026-08-17",
-    "2026-08-18",
-    "2026-08-19",
-    "2026-08-20",
-    "2026-08-21",
-    "2026-08-22"
+    // "2026-08-17",
+    // "2026-08-18",
+    // "2026-08-19",
+    // "2026-08-20",
+    // "2026-08-21",
+    // "2026-08-22"
 ];
 
 const STORAGE_KEYS = {

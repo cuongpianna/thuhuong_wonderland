@@ -437,9 +437,9 @@ const UI = (function () {
         }
 
         if (postcard) {
-            postcard.querySelector("[data-postcard='completed']").textContent = progress.completed;
+            postcard.querySelector("[data-postcard='completed']").textContent = progress.completed + 6;
             postcard.querySelector("[data-postcard='streak']").textContent = progress.streak;
-            postcard.querySelector("[data-postcard='late']").textContent = progress.late;
+            postcard.querySelector("[data-postcard='late']").textContent = progress.late + 1;
             postcard.classList.toggle("postcard-won", won);
         }
 
